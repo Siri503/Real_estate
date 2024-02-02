@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getDownloadURL, getStorage,ref, uploadBytesResumable} from 'firebase/storage';
 import { app } from '../firebase';
@@ -119,11 +120,8 @@ const handleSignOut=async()=>{
         type="file"
         ref={fileRef} hidden accept='image/*'/>
         <img onClick={()=>fileRef.current.click()}
-        className="rounded-full h-24 w-24 object-cover 
-        self-center cursor-pointer mt-2"
+        className="rounded-full h-24 w-24 object-cover self-center cursor-pointer mt-2"
         src={formData.avatar||currentUser.avatar}alt=""/>
-
-
         <p className='text-sm self-center'>
           {fileUploadError ?(
             <span className='text-red-700'>Error Image upload</span>
@@ -135,18 +133,15 @@ const handleSignOut=async()=>{
             ''
           )}
         </p>
-
-
         <input type="text" defaultValue={currentUser.username} placeholder="username"id="username" 
         className='border p-3 rounded-lg' onChange={handleChange}/>
              <input type="email" defaultValue={currentUser.email} placeholder="email"id="email"
         className='border p-3 rounded-lg'onChange={handleChange}/>
              <input type="text" placeholder="password"id="password" 
         className='border p-3 rounded-lg 'onChange={handleChange}/>
-        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
+        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 text-center'>
         {loading?'Loading....':'update'}</button>
-        <button className='bg-green-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>create listing</button>
-
+        <Link className='bg-green-700 text-white rounded-lg p-3 uppercase text-center hover:opacity-95'to={"/create-listing"}>Create-Listing</Link>
        </form>
        <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete account</span>
