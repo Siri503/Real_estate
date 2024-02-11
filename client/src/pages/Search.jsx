@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import ListingItem from '../components/ListingItem';
 const Search = () => {
   const navigate=useNavigate();
   const [sidebardata,setSidebardata]=useState({
@@ -110,7 +111,8 @@ const handleSubmit=(e)=>{
           <div className='flex gap-2 flex-wrap items-center'>
             <label className='font-semibold'>Type:</label>
             <div className='flex gap-2'>
-            <input type="checkbox" id="all"className='w-5'/>
+            <input type="checkbox" id="all"className='w-5'
+            onChange={handleChange} checked={sidebardata.type==='all'}/>
             <span>Rent & Sale</span>
             </div>
             <div className='flex gap-2'>
@@ -154,8 +156,22 @@ const handleSubmit=(e)=>{
          <button className='bg-slate-700 text-white rounded-lg p-3 hover:opacity-95'>Search</button>
        </form>
     </div>
-    <div className=''>
+    <div className='flex-1'>
        <h1 className='mt-5 text-3xl font-semibold border-b p-3 text-slate-700'>Listing results</h1>
+    <div className="p-7 flex flex-wrap gap-4">
+      {!loading && listings.length===0 &&(
+        <p className='text-xl text-slate-700'>No listing found!</p>
+      )}
+      {
+      loading &&(  
+      <p className='text-xl text-slate-700 text-center w-full'>Loading...</p>)
+      }
+      {
+        !loading && listings && listings.map((listing)=>
+        <ListingItem key={listing._id} listing={listing}/>
+        )
+      }
+    </div>
     </div>
    </div>
   )
